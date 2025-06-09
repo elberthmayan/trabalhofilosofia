@@ -69,7 +69,6 @@ strong {
     justify-content: center;
     align-items: center;
     text-align: center;
-    /* AJUSTE AQUI: Aumentei o padding inferior para 150px para não sobrepor a navegação */
     padding: 100px 40px 150px 40px; 
     opacity: 0;
     visibility: hidden;
@@ -165,7 +164,7 @@ strong {
     margin-bottom: 25px;
 }
 
-.conteudo-slide p {
+.conteudo-slide > p {
     font-size: 1.1rem;
     line-height: 1.7;
     max-width: 800px;
@@ -219,8 +218,7 @@ strong {
 
 .card-frente h3 { font-size: 2.5rem; color: var(--cor-primaria); }
 .card-verso { transform: rotateY(180deg); }
-.pergunta-card { display: block; color: var(--cor-secundaria); font-weight: 600; margin-bottom: 8px; }
-.card-verso p { font-size: 1rem; color: var(--cor-texto-principal); }
+.definicao-card { font-size: 1rem; color: var(--cor-texto-principal); margin:0; }
 
 .btn-card {
     margin-top: 20px; padding: 10px 25px;
@@ -266,7 +264,7 @@ strong {
     color: var(--cor-secundaria) !important; margin-bottom: 15px !important;
 }
 .resumo-autor {
-    font-size: 0.95rem !important; color: var(--cor-texto-secundario) !important;
+    font-size: 0.95rem !important; color: var(--cor-texto-secundario) !important; margin: 0;
 }
 
 /* Container para card de filósofo único */
@@ -317,7 +315,107 @@ strong {
 
 #contador-slide { display: none; }
 
-/* --- 8. NOVA TABELA COMPARATIVA --- */
+
+/* --- 8. NOVA LINHA DO TEMPO MINIMALISTA --- */
+.timeline-minimalista-container {
+    position: relative;
+    max-width: 800px;
+    margin: 50px auto;
+}
+
+/* A linha central da timeline */
+.timeline-minimalista-container::after {
+    content: '';
+    position: absolute;
+    width: 3px;
+    background-color: var(--cor-borda);
+    top: 15px;
+    bottom: 15px;
+    left: 50%;
+    margin-left: -1.5px;
+    border-radius: 3px;
+}
+
+/* O container para cada evento da timeline */
+.timeline-minimalista-item {
+    padding: 10px 40px;
+    position: relative;
+    background-color: inherit;
+    width: 50%;
+}
+
+/* O "ponto" ou "estrela" na linha */
+.timeline-minimalista-item::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: -11px;
+    background-color: var(--cor-fundo);
+    border: 4px solid var(--cor-primaria);
+    top: 25px;
+    border-radius: 50%;
+    z-index: 1;
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.7);
+}
+
+/* Posiciona os itens à esquerda */
+.timeline-minimalista-item:nth-child(odd) {
+    left: 0;
+    text-align: right;
+}
+
+/* Posiciona os itens à direita */
+.timeline-minimalista-item:nth-child(even) {
+    left: 50%;
+    text-align: left;
+}
+
+/* Ajusta o ponto para os itens da esquerda */
+.timeline-minimalista-item:nth-child(odd)::after {
+    right: -11px;
+}
+
+/* Ajusta o ponto para os itens da direita */
+.timeline-minimalista-item:nth-child(even)::after {
+    left: -9px;
+}
+
+/* Estilo do conteúdo do card da timeline */
+.timeline-minimalista-conteudo {
+    padding: 20px 30px;
+    background: linear-gradient(145deg, var(--cor-superficie), #1a2238);
+    position: relative;
+    border-radius: 8px;
+    border: 1px solid var(--cor-borda);
+    transition: var(--transicao-suave);
+}
+.timeline-minimalista-conteudo:hover {
+    transform: scale(1.03);
+    border-color: var(--cor-primaria);
+}
+
+.timeline-minimalista-conteudo h4 {
+    color: white;
+    font-size: 1.6rem;
+    margin: 0 0 10px 0;
+}
+.timeline-minimalista-conteudo p {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--cor-texto-secundario);
+}
+.timeline-minimalista-ano {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--cor-secundaria);
+    margin-bottom: 10px;
+}
+
+
+/* --- 9. TABELA COMPARATIVA --- */
 .table-container { 
     width: 100%;
     overflow-x: auto; /* Permite rolar a tabela em telas pequenas */
@@ -370,7 +468,7 @@ tbody tr:last-child td {
     border-bottom: none;
 }
 
-/* --- 9. OPINIÃO --- */
+/* --- 10. OPINIÃO --- */
 .opiniao-box {
     margin-top: 20px; padding: 30px 40px;
     border: 1px solid var(--cor-borda);
@@ -381,7 +479,7 @@ tbody tr:last-child td {
 }
 .opiniao-box p { font-size: 1.1rem; line-height: 1.8; color: var(--cor-texto-principal); margin-bottom: 0; }
 
-/* --- 10. PÁGINA FINAL --- */
+/* --- 11. PÁGINA FINAL --- */
 .agradecimento-final {
     font-size: 5.5rem;
     color: var(--cor-secundaria);
@@ -408,17 +506,37 @@ tbody tr:last-child td {
     display: inline-block;
 }
 
-/* --- 11. AJUSTES RESPONSIVOS --- */
+/* --- 12. AJUSTES RESPONSIVOS --- */
 @media (max-width: 768px) {
     .slide { padding: 80px 20px 150px 20px; } /* Mantém o padding inferior */
     .titulo-principal { font-size: 3.5rem; }
     .subtitulo-principal { font-size: 1.8rem; }
     .conteudo-slide h3 { font-size: 2.8rem; }
-    .conteudo-slide p { font-size: 1rem; }
+    .conteudo-slide > p { font-size: 1rem; }
     .agradecimento-final { font-size: 3.5rem; }
     .integrantes-lista { font-size: 1.2rem; line-height: 2.2; }
     
     #controles { width: calc(100% - 20px); }
-    .filosofo-card { width: 100%; max-width: 340px; } /* Adiciona um max-width no celular */
+    .filosofo-card { width: 100%; max-width: 340px; } 
     th, td { padding: 15px 10px; }
+
+    /* Ajustes da nova linha do tempo para telas menores */
+    .timeline-minimalista-container::after {
+        left: 31px;
+    }
+    .timeline-minimalista-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+    }
+    .timeline-minimalista-item:nth-child(odd) {
+        left: 0;
+        text-align: left;
+    }
+    .timeline-minimalista-item:nth-child(even) {
+        left: 0;
+    }
+    .timeline-minimalista-item::after {
+        left: 22px;
+    }
 }
