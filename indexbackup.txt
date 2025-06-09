@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dossiê Filosófico - Nebulosa do Saber</title>
+    <!-- Fontes do Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Folha de Estilos -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Ícones (Phosphor Icons) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+
+    <!-- Canvas para o fundo de partículas animado -->
+    <canvas id="particle-canvas"></canvas>
+
+    <main id="apresentacao">
+
+        <!-- Slide 0: Título -->
+        <section class="slide">
+            <div class="conteudo-slide">
+                <h1 class="titulo-principal" data-anim="fade-up">Dossiê Filosófico</h1>
+                <h2 class="subtitulo-principal" data-anim="fade-up" style="--delay: 0.2s;">Nebulosa do Saber</h2>
+                <p class="instrucao" data-anim="fade-up" style="--delay: 0.4s;">Use as setas ou o menu para navegar pela galáxia do conhecimento.</p>
+            </div>
+        </section>
+
+        <!-- Slide 1: Grandes Correntes -->
+        <section class="slide">
+            <div class="conteudo-slide">
+                <h3 data-anim="fade-up">As Grandes Correntes</h3>
+                <p data-anim="fade-up" style="--delay: 0.2s;">Clique em um card para revelar sua ideia central.</p>
+                <div class="timeline-container">
+                    <div class="card-container" data-anim="pop-in" style="--delay: 0.4s;">
+                        <div class="card">
+                            <div class="card-frente"><h3>Empirismo</h3></div>
+                            <div class="card-verso">
+                                <p class="definicao-card">Defende que todo o conhecimento provém da <strong>experiência sensorial</strong>. A mente, ao nascer, é uma "tábula rasa".</p>
+                                <button class="btn-card" data-slide-to="2">Explorar <i class="ph-bold ph-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-container" data-anim="pop-in" style="--delay: 0.6s;">
+                        <div class="card">
+                            <div class="card-frente"><h3>Racionalismo</h3></div>
+                            <div class="card-verso">
+                                <p class="definicao-card">Sustenta que a principal fonte do conhecimento é a <strong>razão e a lógica</strong>, e não os sentidos, que são considerados enganosos.</p>
+                                <button class="btn-card" data-slide-to="3">Explorar <i class="ph-bold ph-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-container" data-anim="pop-in" style="--delay: 0.8s;">
+                        <div class="card">
+                            <div class="card-frente"><h3>Iluminismo</h3></div>
+                            <div class="card-verso">
+                                <p class="definicao-card">Movimento que valoriza a <strong>razão humana</strong> como a principal ferramenta para alcançar o progresso, a liberdade e a autonomia.</p>
+                                <button class="btn-card" data-slide-to="4">Explorar <i class="ph-bold ph-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-container" data-anim="pop-in" style="--delay: 1s;">
+                        <div class="card">
+                            <div class="card-frente"><h3>Criticismo</h3></div>
+                            <div class="card-verso">
+                                <p class="definicao-card">Proposto por Kant, busca superar a oposição entre racionalismo e empirismo, unindo <strong>razão e experiência</strong> como complementares.</p>
+                                <button class="btn-card" data-slide-to="5">Explorar <i class="ph-bold ph-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: Empirismo -->
+        <section class="slide">
+            <div class="conteudo-slide">
+                <h3 data-anim="fade-up">Empirismo</h3>
+                <p class="definicao-corrente" data-anim="fade-up" style="--delay: 0.2s;">"Como conhecemos o mundo?"<br><strong>Através da experiência e dos sentidos.</strong></p>
+                 <div class="filosofos-container">
+                    <div class="filosofo-card" data-anim="slide-in-left" style="--delay: 0.4s;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/John_Locke.jpg" alt="Retrato de John Locke" onerror="this.onerror=null;this.src='https://placehold.co/150x150/141B2D/94A3B8?text=Retrato Indisponível'">
+                        <h4>John Locke</h4>
+                        <p class="ideia-central">A Mente é uma "Tábula Rasa"</p>
+                        <p class="resumo-autor">Locke acreditava que nossa mente, ao nascer, é como uma <strong>folha em branco</strong>. Para ele, todo o nosso conhecimento é construído, tijolo por tijolo, unicamente através da <strong>experiência sensorial</strong>.</p>
+                    </div>
+                    <div class="filosofo-card" data-anim="slide-in-right" style="--delay: 0.6s;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/David_Hume_by_Allan_Ramsay_1766.jpg" alt="Retrato de David Hume" onerror="this.onerror=null;this.src='https://placehold.co/150x150/141B2D/94A3B8?text=Retrato Indisponível'">
+                        <h4>David Hume</h4>
+                        <p class="ideia-central">Ceticismo sobre a Causalidade</p>
+                        <p class="resumo-autor">Hume nos convidava a duvidar. Ele argumentava que não podemos provar a <strong>conexão de causa e efeito</strong>; apenas vemos eventos em sequência e, pelo <strong>hábito</strong>, criamos essa ligação em nossa mente.</p>
+                    </div>
+                 </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Racionalismo -->
+        <section class="slide">
+            <div class="conteudo-slide">
+                <h3 data-anim="fade-up">Racionalismo</h3>
+                <p class="definicao-corrente" data-anim="fade-up" style="--delay: 0.2s;">"Onde encontramos a verdade?"<br><strong>Na razão pura e na lógica, não nos sentidos.</strong></p>
+                <div class="filosofos-container">
+                    <div class="filosofo-card" data-anim="slide-in-left" style="--delay: 0.4s;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/73/Frans_Hals_-_Portret_van_René_Descartes.jpg" alt="Retrato de René Descartes" onerror="this.onerror=null;this.src='https://placehold.co/150x150/141B2D/94A3B8?text=Retrato Indisponível'">
+                        <h4>René Descartes</h4>
+                        <p class="ideia-central">"Penso, logo existo"</p>
+                        <p class="resumo-autor">Em sua busca por uma verdade inquestionável, Descartes duvidou de tudo. Ele concluiu que, mesmo que tudo fosse uma ilusão, a própria ação de duvidar provava sua existência: <strong>"Penso, logo existo"</strong>.</p>
+                    </div>
+                    <div class="filosofo-card" data-anim="slide-in-right" style="--delay: 0.6s;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Spinoza.jpg" alt="Retrato de Baruch Spinoza" onerror="this.onerror=null;this.src='https://placehold.co/150x150/141B2D/94A3B8?text=Retrato Indisponível'">
+                        <h4>Baruch Spinoza</h4>
+                        <p class="ideia-central">Deus e Natureza são a Mesma Coisa</p>
+                        <p class="resumo-autor">Para Spinoza, não havia separação: <strong>Deus e Natureza eram a mesma coisa</strong>. Ele via o universo como uma <strong>única substância</strong>, governada por leis lógicas e racionais que podemos compreender.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Iluminismo -->
+        <section class="slide">
+            <div class="conteudo-slide">
+                <h3 data-anim="fade-up">Iluminismo</h3>
+                <p class="definicao-corrente" data-anim="fade-up" style="--delay: 0.2s;">"Qual o propósito do conhecimento?"<br><strong>Iluminar a sociedade para alcançar progresso e liberdade.</strong></p>
+                 <div class="filosofos-container">
+                    <div class="filosofo-card" data-anim="slide-in-left" style="--delay: 0.4s;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c2/Atelier_de_Nicolas_de_Largillière%2C_portrait_de_Voltaire%2C_détail_%28musée_Carnavalet%29_-002.jpg" alt="Retrato de Voltaire" onerror="this.onerror=null;this.src='https://placehold.co/150x150/141B2D/94A3B8?text=Retrato Indisponível'">
+                        <h4>Voltaire</h4>
+                        <p class="ideia-central">Defesa da Liberdade de Expressão</p>
+                        <p class="resumo-autor">A grande bandeira de Voltaire era a luta contra a <strong>intolerância e a tirania</strong>. Ele defendia ferozmente o direito de cada um expressar suas ideias, imortalizando a defesa da <strong>liberdade de expressão</strong>.</p>
+                    </div>
+                    <div class="filosofo-card" data-anim="slide-in-right" style="--delay: 0.6s;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Jean-Jacques_Rousseau_%28painted_portrait%29.jpg" alt="Retrato de Jean-Jacques Rousseau" onerror="this.onerror=null;this.src='https://placehold.co/150x150/141B2D/94A3B8?text=Retrato Indisponível'">
+                        <h4>J.J. Rousseau</h4>
+                        <p class="ideia-central">A Vontade Geral do Povo</p>
+                        <p class="resumo-autor">Rousseau acreditava que o ser humano nasce bom, mas a <strong>sociedade o corrompe</strong>. Para ele, um governo só seria legítimo se seguisse a <strong>"vontade geral"</strong> do seu povo, e não interesses particulares.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Criticismo -->
+        <section class="slide">
+            <div class="conteudo-slide">
+                <h3 data-anim="fade-up">Criticismo Kantiano</h3>
+                <p class="definicao-corrente" data-anim="fade-up" style="--delay: 0.2s;">"Razão ou Experiência?"<br><strong>Ambos. O conhecimento é uma síntese dos dois.</strong></p>
+                 <div class="filosofo-single-container">
+                    <div class="filosofo-card" data-anim="pop-in" style="--delay: 0.4s;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Kant_gemaelde_3.jpg" alt="Retrato de Immanuel Kant" onerror="this.onerror=null;this.src='https://placehold.co/150x150/141B2D/94A3B8?text=Retrato Indisponível'">
+                        <h4>Immanuel Kant</h4>
+                        <p class="ideia-central">A "Revolução Copernicana" da Mente</p>
+                        <p class="resumo-autor">Kant realizou uma "revolução copernicana" na filosofia. Ele mostrou que nossa mente não é passiva; ela <strong>organiza ativamente</strong> a realidade que recebemos, usando <strong>estruturas inatas</strong> como tempo e espaço.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Quadro Comparativo (Formato Tabela) -->
+        <section class="slide">
+            <div class="conteudo-slide">
+                <h3 data-anim="fade-up">Quadro Comparativo</h3>
+                <div class="table-container" data-anim="fade-up" style="--delay: 0.2s;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th><i class="ph-bold ph-scales"></i> Corrente</th>
+                                <th><i class="ph-bold ph-brain"></i> Fonte do Conhecimento</th>
+                                <th><i class="ph-bold ph-lightbulb-filament"></i> Ideias Inatas?</th>
+                                <th><i class="ph-bold ph-users-three"></i> Destaques</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Empirismo</td>
+                                <td>Experiência Sensível</td>
+                                <td>Não (Tábula Rasa)</td>
+                                <td>Locke, Hume</td>
+                            </tr>
+                            <tr>
+                                <td>Racionalismo</td>
+                                <td>Razão Pura</td>
+                                <td>Sim (Conceitos lógicos)</td>
+                                <td>Descartes, Spinoza</td>
+                            </tr>
+                            <tr>
+                                <td>Iluminismo</td>
+                                <td>Razão Crítica e Ciência</td>
+                                <td>Sim (Valores universais)</td>
+                                <td>Voltaire, Rousseau</td>
+                            </tr>
+                            <tr>
+                                <td>Criticismo</td>
+                                <td>Razão + Experiência</td>
+                                <td>Sim (Estruturas da mente)</td>
+                                <td>Kant</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Opinião Crítica -->
+        <section class="slide">
+            <div class="conteudo-slide">
+                <h3 data-anim="fade-up">Opinião Crítica</h3>
+                <p data-anim="fade-up" style="--delay: 0.2s;"><em>Qual corrente consideramos mais aplicável ao mundo atual e por quê?</em></p>
+                <div class="opiniao-box" data-anim="fade-up" style="--delay: 0.4s;">
+                    <p>
+                        AINDA IREI COLOCAR, MINHA SUGESTÃO: <strong>Criticismo Kantiano</strong>, porque vivemos em uma era de excesso de informação, mas sem usar a razão e estruturas de pensamento crítico.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE FINAL: Obrigado! -->
+        <section class="slide">
+            <div class="conteudo-slide">
+                <h2 class="agradecimento-final" data-anim="pop-in" style="--delay: 0.2s;">Obrigado!</h2>
+                <div class="integrantes-container">
+                    <ul class="integrantes-lista">
+                        <li data-anim="fade-up" style="--delay: 0.6s;">Iago</li>
+                        <li data-anim="fade-up" style="--delay: 0.8s;">Elberth Mayan</li>
+                        <li data-anim="fade-up" style="--delay: 1.0s;">Matheus H. Freitas</li>
+                        <li data-anim="fade-up" style="--delay: 1.2s;">Yasmin Gabriella</li>
+                        <li data-anim="fade-up" style="--delay: 1.4s;" class="obs">(O restante eu n lembro)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <!-- Controles de Navegação -->
+    <div id="controles">
+        <button id="btn-anterior" title="Slide Anterior (Seta Esquerda)">
+            <i class="ph-bold ph-caret-left"></i>
+        </button>
+        <nav id="menu-navegacao">
+            <a href="#" class="nav-link" data-slide-to="0" title="Início"></a>
+            <a href="#" class="nav-link" data-slide-to="1" title="Correntes"></a>
+            <a href="#" class="nav-link" data-slide-to="2" title="Empirismo"></a>
+            <a href="#" class="nav-link" data-slide-to="3" title="Racionalismo"></a>
+            <a href="#" class="nav-link" data-slide-to="4" title="Iluminismo"></a>
+            <a href="#" class="nav-link" data-slide-to="5" title="Criticismo"></a>
+            <a href="#" class="nav-link" data-slide-to="6" title="Quadro"></a>
+            <a href="#" class="nav-link" data-slide-to="7" title="Opinião"></a>
+            <a href="#" class="nav-link" data-slide-to="8" title="Obrigado!"></a>
+        </nav>
+        <span id="contador-slide"></span>
+        <button id="btn-proximo" title="Próximo Slide (Seta Direita)">
+            <i class="ph-bold ph-caret-right"></i>
+        </button>
+    </div>
+
+    <!-- Biblioteca de Som Tone.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
+    <!-- Script principal -->
+    <script src="script.js"></script>
+</body>
+</html>

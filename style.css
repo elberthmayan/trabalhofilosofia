@@ -1,0 +1,424 @@
+/* --- 1. CONFIGURAÇÕES GLOBAIS E TEMA "NEBULOSA DO SABER" --- */
+:root {
+    /* Cores */
+    --cor-fundo: #0A101E; /* Azul noite profundo */
+    --cor-superficie: #141B2D; /* Azul-escuro para cards e superfícies */
+    --cor-primaria: #38BDF8; /* Azul céu brilhante para destaques */
+    --cor-secundaria: #FBCB23; /* Dourado/Amarelo para acentos */
+    --cor-texto-principal: #E2E8F0; /* Quase branco para leitura */
+    --cor-texto-secundario: #94A3B8; /* Cinza-azulado para textos de apoio */
+    --cor-borda: rgba(56, 189, 248, 0.2); /* Borda sutil com a cor primária */
+
+    /* Fontes */
+    --fonte-titulo: 'Playfair Display', serif;
+    --fonte-corpo: 'Inter', sans-serif;
+
+    /* Transições e Animações */
+    --transicao-suave: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--fonte-corpo);
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto-principal);
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+h1, h2, h3, h4 {
+    font-family: var(--fonte-titulo);
+    font-weight: 600;
+}
+
+strong {
+    color: var(--cor-primaria);
+    font-weight: 600;
+}
+
+/* --- 2. CANVAS DE PARTÍCULAS (FUNDO ANIMADO) --- */
+#particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.5;
+}
+
+/* --- 3. LAYOUT PRINCIPAL E TRANSIÇÃO DE SLIDES --- */
+#apresentacao {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Garante que a apresentação fique sobre o canvas */
+}
+
+.slide {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /* AJUSTE AQUI: Aumentei o padding inferior para 150px para não sobrepor a navegação */
+    padding: 100px 40px 150px 40px; 
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.7s ease, visibility 0.7s, transform 0.7s ease;
+    transform: scale(0.95);
+    overflow-y: auto;
+}
+
+.slide.slide-ativo {
+    opacity: 1;
+    visibility: visible;
+    z-index: 10;
+    transform: scale(1);
+}
+
+.slide.slide-saindo {
+    opacity: 0;
+    z-index: 9;
+    transform: scale(1.05);
+}
+
+.conteudo-slide {
+    width: 100%;
+    max-width: 1100px;
+}
+
+/* --- 4. ANIMAÇÕES DE ENTRADA PARA CONTEÚDO --- */
+[data-anim] {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    transition-delay: var(--delay, 0s);
+}
+
+.slide-ativo [data-anim="fade-up"] {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.slide-ativo [data-anim="pop-in"] {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    transform-origin: bottom;
+}
+
+[data-anim="pop-in"] {
+    transform: scale(0.8);
+}
+
+.slide-ativo [data-anim="slide-in-left"] {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+[data-anim="slide-in-left"] {
+    transform: translateX(-50px);
+}
+
+.slide-ativo [data-anim="slide-in-right"] {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+[data-anim="slide-in-right"] {
+    transform: translateX(50px);
+}
+
+
+/* --- 5. ELEMENTOS DE TEXTO --- */
+.titulo-principal {
+    font-size: 5.5rem;
+    color: white;
+    font-weight: 700;
+    text-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+}
+
+.subtitulo-principal {
+    font-size: 2.5rem;
+    font-family: var(--fonte-corpo);
+    font-weight: 300;
+    color: var(--cor-secundaria);
+    margin-bottom: 20px;
+}
+
+.instrucao {
+    font-style: italic;
+    color: var(--cor-texto-secundario);
+}
+
+.conteudo-slide h3 {
+    font-size: 3.5rem;
+    color: white;
+    margin-bottom: 25px;
+}
+
+.conteudo-slide p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    max-width: 800px;
+    margin: 0 auto 30px auto;
+    color: var(--cor-texto-secundario);
+}
+
+.definicao-corrente {
+    font-size: 1.3rem !important;
+    font-style: italic;
+    color: var(--cor-texto-principal);
+    margin-top: -10px;
+    margin-bottom: 50px !important;
+}
+
+/* --- 6. CARDS (FLIP E FILÓSOFOS) --- */
+.timeline-container, .filosofos-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    perspective: 1500px;
+}
+
+/* Card que vira */
+.card-container { width: 240px; height: 320px; cursor: pointer; }
+.card {
+    width: 100%; height: 100%; position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.9s cubic-bezier(0.7, 0, 0.3, 1);
+}
+.card-container.virado .card { transform: rotateY(180deg); }
+
+.card-frente, .card-verso {
+    position: absolute; width: 100%; height: 100%;
+    backface-visibility: hidden;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 20px;
+    border-radius: 12px;
+    background: linear-gradient(145deg, var(--cor-superficie), #1a2238);
+    border: 1px solid var(--cor-borda);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.05);
+    transition: var(--transicao-suave);
+}
+
+.card-container:hover .card-frente {
+    transform: translateY(-8px) scale(1.03);
+    border-color: var(--cor-primaria);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.3);
+}
+
+.card-frente h3 { font-size: 2.5rem; color: var(--cor-primaria); }
+.card-verso { transform: rotateY(180deg); }
+.pergunta-card { display: block; color: var(--cor-secundaria); font-weight: 600; margin-bottom: 8px; }
+.card-verso p { font-size: 1rem; color: var(--cor-texto-principal); }
+
+.btn-card {
+    margin-top: 20px; padding: 10px 25px;
+    border: 1px solid var(--cor-primaria);
+    background: transparent; color: var(--cor-primaria);
+    border-radius: 50px; cursor: pointer; font-weight: 600;
+    font-family: var(--fonte-corpo); transition: var(--transicao-suave);
+    display: flex; align-items: center; gap: 8px;
+}
+.btn-card:hover { 
+    background-color: var(--cor-primaria); color: var(--cor-fundo); 
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+    transform: scale(1.05);
+}
+
+/* Card de filósofo */
+.filosofo-card {
+    background: linear-gradient(145deg, var(--cor-superficie), #1a2238);
+    padding: 30px; border-radius: 12px; border: 1px solid var(--cor-borda);
+    width: 340px; display: flex; flex-direction: column; align-items: center; text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    transition: var(--transicao-suave);
+}
+.filosofo-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    border-color: var(--cor-primaria);
+}
+.filosofo-card img {
+    width: 120px; height: 120px; border-radius: 50%;
+    border: 4px solid var(--cor-primaria);
+    margin-bottom: 20px; object-fit: cover;
+    filter: grayscale(0.5) contrast(1.1);
+    transition: var(--transicao-suave);
+}
+.filosofo-card:hover img {
+    filter: grayscale(0) contrast(1);
+    box-shadow: 0 0 20px var(--cor-primaria);
+}
+.filosofo-card h4 { font-size: 1.8rem; color: white; margin-bottom: 10px; }
+.ideia-central {
+    font-family: var(--fonte-titulo); font-size: 1.2rem !important; font-style: italic;
+    color: var(--cor-secundaria) !important; margin-bottom: 15px !important;
+}
+.resumo-autor {
+    font-size: 0.95rem !important; color: var(--cor-texto-secundario) !important;
+}
+
+/* Container para card de filósofo único */
+.filosofo-single-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- 7. NAVEGAÇÃO E CONTROLES --- */
+#controles {
+    position: fixed; bottom: 30px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; align-items: center; gap: 15px; z-index: 100;
+    background: rgba(10, 16, 30, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--cor-borda);
+    border-radius: 50px; padding: 8px;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+}
+#menu-navegacao { display: flex; align-items: center; gap: 5px; }
+.nav-link {
+    width: 12px; height: 12px; border-radius: 50%;
+    background-color: var(--cor-texto-secundario);
+    transition: var(--transicao-suave);
+    cursor: pointer;
+    opacity: 0.5;
+}
+.nav-link:hover {
+    opacity: 1;
+    transform: scale(1.2);
+}
+.nav-link.active-link {
+    background-color: var(--cor-primaria);
+    transform: scale(1.4);
+    box-shadow: 0 0 10px var(--cor-primaria);
+    opacity: 1;
+}
+
+#controles button {
+    background: transparent; border: none;
+    color: var(--cor-primaria); width: 44px; height: 44px;
+    border-radius: 50%; cursor: pointer; transition: var(--transicao-suave);
+    display: flex; justify-content: center; align-items: center;
+}
+#controles button:hover { background-color: rgba(56, 189, 248, 0.1); }
+#controles button i { font-size: 28px; }
+
+#contador-slide { display: none; }
+
+/* --- 8. NOVA TABELA COMPARATIVA --- */
+.table-container { 
+    width: 100%;
+    overflow-x: auto; /* Permite rolar a tabela em telas pequenas */
+    background: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    text-align: left;
+}
+th, td {
+    padding: 20px;
+    border-bottom: 1px solid var(--cor-borda);
+}
+th {
+    color: var(--cor-primaria);
+    font-size: 1.1rem;
+    font-family: var(--fonte-corpo);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: left;
+}
+th i {
+    margin-right: 8px;
+    vertical-align: middle;
+    font-size: 1.3rem;
+}
+tbody tr {
+    transition: background-color 0.3s ease;
+}
+tbody tr:hover {
+    background-color: rgba(56, 189, 248, 0.05);
+}
+tbody tr td:first-child {
+    font-weight: 600;
+    color: var(--cor-texto-principal);
+    font-size: 1.1rem;
+}
+tbody tr td {
+    color: var(--cor-texto-secundario);
+}
+/* Remove a borda da última linha */
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* --- 9. OPINIÃO --- */
+.opiniao-box {
+    margin-top: 20px; padding: 30px 40px;
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    background-color: var(--cor-superficie);
+    text-align: left; max-width: 800px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+.opiniao-box p { font-size: 1.1rem; line-height: 1.8; color: var(--cor-texto-principal); margin-bottom: 0; }
+
+/* --- 10. PÁGINA FINAL --- */
+.agradecimento-final {
+    font-size: 5.5rem;
+    color: var(--cor-secundaria);
+    font-family: var(--fonte-titulo);
+    text-shadow: 0 0 20px rgba(251, 203, 35, 0.5);
+    margin-bottom: 40px;
+}
+.integrantes-container {
+    margin-top: 20px;
+}
+.integrantes-lista {
+    list-style: none;
+    padding: 0;
+    font-size: 1.5rem;
+    line-height: 2.5;
+    color: var(--cor-texto-principal);
+}
+.integrantes-lista .obs {
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--cor-texto-secundario);
+    opacity: 0.8;
+    margin-top: 15px;
+    display: inline-block;
+}
+
+/* --- 11. AJUSTES RESPONSIVOS --- */
+@media (max-width: 768px) {
+    .slide { padding: 80px 20px 150px 20px; } /* Mantém o padding inferior */
+    .titulo-principal { font-size: 3.5rem; }
+    .subtitulo-principal { font-size: 1.8rem; }
+    .conteudo-slide h3 { font-size: 2.8rem; }
+    .conteudo-slide p { font-size: 1rem; }
+    .agradecimento-final { font-size: 3.5rem; }
+    .integrantes-lista { font-size: 1.2rem; line-height: 2.2; }
+    
+    #controles { width: calc(100% - 20px); }
+    .filosofo-card { width: 100%; max-width: 340px; } /* Adiciona um max-width no celular */
+    th, td { padding: 15px 10px; }
+}
