@@ -82,13 +82,13 @@
                 <p class="definicao-corrente" data-anim="fade-up" style="--delay: 0.2s;">"Como conhecemos o mundo?"<br><strong>Através da experiência e dos sentidos.</strong></p>
                  <div class="filosofos-container">
                     <div class="filosofo-card" data-anim="slide-in-left" style="--delay: 0.4s;">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/John_Locke.jpg" alt="Retrato de John Locke" onerror="this.onerror=null;this.src='https://placehold.co/150x150/141B2D/94A3B8?text=Retrato Indisponível'">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/John_Locke.jpg/220px-John_Locke.jpg" alt="Retrato de John Locke" onerror="this.onerror=null;this.src='https://placehold.co/150x150/141B2D/94A3B8?text=Retrato Indisponível'">
                         <h4>John Locke</h4>
                         <p class="ideia-central">A Mente é uma "Tábula Rasa"</p>
                         <p class="resumo-autor">Locke acreditava que nossa mente, ao nascer, é como uma <strong>folha em branco</strong>. Para ele, todo o nosso conhecimento é construído, tijolo por tijolo, unicamente através da <strong>experiência sensorial</strong>.</p>
                     </div>
                     <div class="filosofo-card" data-anim="slide-in-right" style="--delay: 0.6s;">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/David_Hume_by_Allan_Ramsay_1766.jpg" alt="Retrato de David Hume" onerror="this.onerror=null;this.src='https://placehold.co/150x150/141B2D/94A3B8?text=Retrato Indisponível'">
+                        <img src="imagens/davidhume.jpg" alt="Retrato de David Hume" onerror="this.onerror=null;this.src='https://placehold.co/150x150/141B2D/94A3B8?text=Imagem Não Encontrada'">
                         <h4>David Hume</h4>
                         <p class="ideia-central">Ceticismo sobre a Causalidade</p>
                         <p class="resumo-autor">Hume nos convidava a duvidar. Ele argumentava que não podemos provar a <strong>conexão de causa e efeito</strong>; apenas vemos eventos em sequência e, pelo <strong>hábito</strong>, criamos essa ligação em nossa mente.</p>
@@ -104,13 +104,13 @@
                 <p class="definicao-corrente" data-anim="fade-up" style="--delay: 0.2s;">"Onde encontramos a verdade?"<br><strong>Na razão pura e na lógica, não nos sentidos.</strong></p>
                 <div class="filosofos-container">
                     <div class="filosofo-card" data-anim="slide-in-left" style="--delay: 0.4s;">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/73/Frans_Hals_-_Portret_van_René_Descartes.jpg" alt="Retrato de René Descartes" onerror="this.onerror=null;this.src='https://placehold.co/150x150/141B2D/94A3B8?text=Retrato Indisponível'">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Frans_Hals_-_Portret_van_Ren%C3%A9_Descartes.jpg/220px-Frans_Hals_-_Portret_van_Ren%C3%A9_Descartes.jpg" alt="Retrato de René Descartes" onerror="this.onerror=null;this.src='https://placehold.co/150x150/141B2D/94A3B8?text=Retrato Indisponível'">
                         <h4>René Descartes</h4>
                         <p class="ideia-central">"Penso, logo existo"</p>
                         <p class="resumo-autor">Em sua busca por uma verdade inquestionável, Descartes duvidou de tudo. Ele concluiu que, mesmo que tudo fosse uma ilusão, a própria ação de duvidar provava sua existência: <strong>"Penso, logo existo"</strong>.</p>
                     </div>
                     <div class="filosofo-card" data-anim="slide-in-right" style="--delay: 0.6s;">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Spinoza.jpg" alt="Retrato de Baruch Spinoza" onerror="this.onerror=null;this.src='https://placehold.co/150x150/141B2D/94A3B8?text=Retrato Indisponível'">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Spinoza.jpg/220px-Spinoza.jpg" alt="Retrato de Baruch Spinoza" onerror="this.onerror=null;this.src='https://placehold.co/150x150/141B2D/94A3B8?text=Retrato Indisponível'">
                         <h4>Baruch Spinoza</h4>
                         <p class="ideia-central">Deus e Natureza são a Mesma Coisa</p>
                         <p class="resumo-autor">Para Spinoza, não havia separação: <strong>Deus e Natureza eram a mesma coisa</strong>. Ele via o universo como uma <strong>única substância</strong>, governada por leis lógicas e racionais que podemos compreender.</p>
@@ -126,13 +126,13 @@
                 <p class="definicao-corrente" data-anim="fade-up" style="--delay: 0.2s;">"Qual o propósito do conhecimento?"<br><strong>Iluminar a sociedade para alcançar progresso e liberdade.</strong></p>
                  <div class="filosofos-container">
                     <div class="filosofo-card" data-anim="slide-in-left" style="--delay: 0.4s;">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c2/Atelier_de_Nicolas_de_Largillière%2C_portrait_de_Voltaire%2C_détail_%28musée_Carnavalet%29_-002.jpg" alt="Retrato de Voltaire" onerror="this.onerror=null;this.src='https://placehold.co/150x150/141B2D/94A3B8?text=Retrato Indisponível'">
+                        <img src="imagens/voltaire.jpeg" alt="Retrato de Voltaire" onerror="this.onerror=null;this.src='https://placehold.co/150x150/141B2D/94A3B8?text=Imagem Não Encontrada'">
                         <h4>Voltaire</h4>
                         <p class="ideia-central">Defesa da Liberdade de Expressão</p>
                         <p class="resumo-autor">A grande bandeira de Voltaire era a luta contra a <strong>intolerância e a tirania</strong>. Ele defendia ferozmente o direito de cada um expressar suas ideias, imortalizando a defesa da <strong>liberdade de expressão</strong>.</p>
                     </div>
                     <div class="filosofo-card" data-anim="slide-in-right" style="--delay: 0.6s;">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Jean-Jacques_Rousseau_%28painted_portrait%29.jpg" alt="Retrato de Jean-Jacques Rousseau" onerror="this.onerror=null;this.src='https://placehold.co/150x150/141B2D/94A3B8?text=Retrato Indisponível'">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Jean-Jacques_Rousseau_%28painted_portrait%29.jpg/220px-Jean-Jacques_Rousseau_%28painted_portrait%29.jpg" alt="Retrato de Jean-Jacques Rousseau" onerror="this.onerror=null;this.src='https://placehold.co/150x150/141B2D/94A3B8?text=Retrato Indisponível'">
                         <h4>J.J. Rousseau</h4>
                         <p class="ideia-central">A Vontade Geral do Povo</p>
                         <p class="resumo-autor">Rousseau acreditava que o ser humano nasce bom, mas a <strong>sociedade o corrompe</strong>. Para ele, um governo só seria legítimo se seguisse a <strong>"vontade geral"</strong> do seu povo, e não interesses particulares.</p>
@@ -148,7 +148,7 @@
                 <p class="definicao-corrente" data-anim="fade-up" style="--delay: 0.2s;">"Razão ou Experiência?"<br><strong>Ambos. O conhecimento é uma síntese dos dois.</strong></p>
                  <div class="filosofo-single-container">
                     <div class="filosofo-card" data-anim="pop-in" style="--delay: 0.4s;">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Kant_gemaelde_3.jpg" alt="Retrato de Immanuel Kant" onerror="this.onerror=null;this.src='https://placehold.co/150x150/141B2D/94A3B8?text=Retrato Indisponível'">
+                        <img src="imagens/imanuelkent.jpg" alt="Retrato de Immanuel Kant" onerror="this.onerror=null;this.src='https://placehold.co/150x150/141B2D/94A3B8?text=Imagem Não Encontrada'">
                         <h4>Immanuel Kant</h4>
                         <p class="ideia-central">A "Revolução Copernicana" da Mente</p>
                         <p class="resumo-autor">Kant realizou uma "revolução copernicana" na filosofia. Ele mostrou que nossa mente não é passiva; ela <strong>organiza ativamente</strong> a realidade que recebemos, usando <strong>estruturas inatas</strong> como tempo e espaço.</p>

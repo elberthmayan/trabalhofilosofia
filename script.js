@@ -11,45 +11,31 @@ document.addEventListener('DOMContentLoaded', () => {
     let isAnimating = false;
 
     // --- INICIALIZAÇÃO DE EFEITOS SONOROS (Tone.js) ---
-    // Sons foram ajustados para serem mais suaves e ambientes.
+    // Apenas o som de virar o card será mantido e tocado.
     const soundPlayer = {
         isReady: false,
-        synths: {},
+        synth: null,
         init: function() {
-            // Um som de 'whoosh' suave para a transição de slides.
-            this.synths.slide = new Tone.NoiseSynth({
-                noise: { type: 'white' },
-                envelope: { attack: 0.005, decay: 0.05, sustain: 0 }
-            }).toDestination();
-
             // Um som de 'pluck' com reverb, mais etéreo.
             const reverb = new Tone.Reverb(0.5).toDestination();
-            this.synths.card = new Tone.PluckSynth({
+            this.synth = new Tone.PluckSynth({
                 attackNoise: 0.5,
                 dampening: 4000,
                 resonance: 0.9
             }).connect(reverb);
-
-            // Um 'click' sutil e agudo.
-            this.synths.click = new Tone.Synth({
-                oscillator: { type: 'sine' },
-                envelope: { attack: 0.001, decay: 0.1, sustain: 0.1, release: 0.1 }
-            }).toDestination();
-
             this.isReady = true;
         },
-        play: function(sound) {
+        playCardFlip: function() {
             if (!this.isReady) return;
             try {
-                if (sound === 'slide') this.synths.slide.triggerAttack();
-                if (sound === 'card') this.synths.card.triggerAttackRelease("C5", "8n");
-                if (sound === 'click') this.synths.click.triggerAttackRelease("G5", "32n");
+                this.synth.triggerAttackRelease("C5", "8n");
             } catch (error) {
                 console.error("Erro ao tocar som com Tone.js:", error);
             }
         }
     };
     
+    // Inicia os sons após a primeira interação do usuário.
     document.body.addEventListener('click', () => {
         if (!soundPlayer.isReady && typeof Tone !== 'undefined') {
             Tone.start();
@@ -60,12 +46,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- FUNÇÕES DE NAVEGAÇÃO DE SLIDE ---
     function mostrarSlide(proximoIndice) {
-        // A condição Impede a re-animação do slide atual.
         if (isAnimating || proximoIndice < 0 || proximoIndice >= slides.length || proximoIndice === slideAtual) {
             return;
         }
         isAnimating = true;
-        soundPlayer.play('slide');
+        // SOM REMOVIDO DAQUI
         
         const slideAntigo = slides[slideAtual];
         const slideNovo = slides[proximoIndice];
@@ -79,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             slideAntigo.classList.remove('slide-ativo', 'slide-saindo');
             isAnimating = false;
-        }, 700); // Duração da transição em CSS
+        }, 700);
     }
 
     function atualizarControles() {
@@ -90,14 +75,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- NOVA FUNÇÃO DE INICIALIZAÇÃO ---
-    // Esta função prepara o estado inicial da apresentação.
     function inicializarApresentacao() {
-        // Ativa o primeiro slide diretamente, sem animação.
         if (slides.length > 0) {
             slides[0].classList.add('slide-ativo');
         }
-        // Configura o estado inicial dos botões e da navegação.
         atualizarControles();
     }
 
@@ -114,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            soundPlayer.play('click');
+            // SOM REMOVIDO DAQUI
             mostrarSlide(parseInt(link.dataset.slideTo, 10));
         });
     });
@@ -122,14 +103,15 @@ document.addEventListener('DOMContentLoaded', () => {
     exploreButtons.forEach(button => {
         button.addEventListener('click', (e) => {
             e.stopPropagation();
-            soundPlayer.play('click');
+            // SOM REMOVIDO DAQUI
             mostrarSlide(parseInt(button.dataset.slideTo, 10));
         });
     });
 
+    // ÚNICO LUGAR COM SOM
     cardContainers.forEach(container => {
         container.addEventListener('click', () => {
-            soundPlayer.play('card');
+            soundPlayer.playCardFlip(); // Toca o som de virar o card
             container.classList.toggle('virado');
         });
     });
@@ -157,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
             this.dirY = dirY;
             this.size = size;
             this.color = color;
-            this.density = (Math.random() * 20) + 5; // Densidade para interação com o mouse
+            this.density = (Math.random() * 20) + 5;
         }
 
         draw() {
@@ -168,17 +150,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         update() {
-            // Movimento autônomo constante das partículas
             this.x += this.dirX;
             this.y += this.dirY;
 
-            // Lógica para as partículas reaparecerem do outro lado da tela (wrapping)
             if (this.x > canvas.width + this.size) this.x = -this.size;
             if (this.x < -this.size) this.x = canvas.width + this.size;
             if (this.y > canvas.height + this.size) this.y = -this.size;
             if (this.y < -this.size) this.y = canvas.height + this.size;
 
-            // Interação com o mouse (empurrar partículas)
             if (mouse.x !== null && mouse.y !== null) {
                 let dx = mouse.x - this.x;
                 let dy = mouse.y - this.y;
@@ -204,10 +183,9 @@ document.addEventListener('DOMContentLoaded', () => {
         particles = [];
         const numberOfParticles = (canvas.width * canvas.height) / 9000;
         for (let i = 0; i < numberOfParticles; i++) {
-            const size = (Math.random() * 2) + 1; // Tamanho das estrelas
+            const size = (Math.random() * 2) + 1;
             const x = (Math.random() * innerWidth);
             const y = (Math.random() * innerHeight);
-            // Velocidade e direção aleatória para cada estrela
             const dirX = (Math.random() * 0.4) - 0.2; 
             const dirY = (Math.random() * 0.4) - 0.2;
             const color = 'rgba(56, 189, 248, 0.6)';
