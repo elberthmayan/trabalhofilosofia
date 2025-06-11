@@ -202,7 +202,7 @@ strong {
 }
 
 .conteudo-slide > p {
-    font-size: 1.1rem;
+    font-size: 1.2rem; /* AJUSTADO */
     line-height: 1.7;
     max-width: 800px;
     margin: 0 auto 30px auto;
@@ -301,7 +301,8 @@ strong {
     color: var(--cor-secundaria) !important; margin-bottom: 15px !important;
 }
 .resumo-autor {
-    font-size: 0.95rem !important; color: var(--cor-texto-secundario) !important; margin: 0;
+    font-size: 1.1rem !important; /* AJUSTADO */
+    color: var(--cor-texto-secundario) !important; margin: 0;
 }
 
 /* Container para card de filósofo único */

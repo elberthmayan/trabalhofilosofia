@@ -17,6 +17,29 @@
     --transicao-suave: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+/* Animação de pulso para o link de navegação ativo */
+@keyframes pulso-estrela {
+    0% {
+        box-shadow: 0 0 8px rgba(56, 189, 248, 0.5), 0 0 10px rgba(56, 189, 248, 0.5) inset;
+        transform: scale(1.4);
+    }
+    50% {
+        box-shadow: 0 0 16px rgba(56, 189, 248, 0.8), 0 0 12px rgba(56, 189, 248, 0.7) inset;
+        transform: scale(1.5);
+    }
+    100% {
+        box-shadow: 0 0 8px rgba(56, 189, 248, 0.5), 0 0 10px rgba(56, 189, 248, 0.5) inset;
+        transform: scale(1.4);
+    }
+}
+
+/* NOVO: Animação de brilho para o título */
+@keyframes brilho-cosmico {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+}
+
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -140,9 +163,23 @@ strong {
 /* --- 5. ELEMENTOS DE TEXTO --- */
 .titulo-principal {
     font-size: 5.5rem;
-    color: white;
     font-weight: 700;
     text-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+
+    /* NOVO: Estilos para o efeito de brilho */
+    background-image: linear-gradient(
+        90deg,
+        var(--cor-texto-principal),
+        #fff,
+        var(--cor-primaria),
+        #fff,
+        var(--cor-texto-principal)
+    );
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: brilho-cosmico 8s linear infinite;
 }
 
 .subtitulo-principal {
@@ -299,9 +336,8 @@ strong {
 }
 .nav-link.active-link {
     background-color: var(--cor-primaria);
-    transform: scale(1.4);
-    box-shadow: 0 0 10px var(--cor-primaria);
     opacity: 1;
+    animation: pulso-estrela 2s infinite ease-in-out; /* Aplica a animação */
 }
 
 #controles button {
@@ -450,11 +486,18 @@ th i {
     font-size: 1.3rem;
 }
 tbody tr {
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, opacity 0.3s ease; /* Adicionada transição de opacidade */
 }
-tbody tr:hover {
+
+/* Efeito de foco na tabela */
+.table-container:hover tbody tr {
+    opacity: 0.5;
+}
+.table-container:hover tbody tr:hover {
     background-color: rgba(56, 189, 248, 0.05);
+    opacity: 1;
 }
+
 tbody tr td:first-child {
     font-weight: 600;
     color: var(--cor-texto-principal);
@@ -470,11 +513,13 @@ tbody tr:last-child td {
 
 /* --- 10. OPINIÃO --- */
 .opiniao-box {
-    margin-top: 20px; padding: 30px 40px;
+    margin: 20px auto 0 auto; /* Centraliza a caixa e mantém a margem superior */
+    padding: 30px 40px;
     border: 1px solid var(--cor-borda);
     border-radius: 8px;
     background-color: var(--cor-superficie);
-    text-align: left; max-width: 800px;
+    text-align: left; 
+    max-width: 800px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 .opiniao-box p { font-size: 1.1rem; line-height: 1.8; color: var(--cor-texto-principal); margin-bottom: 0; }
