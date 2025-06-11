@@ -8,164 +8,264 @@ document.addEventListener('DOMContentLoaded', () => {
     const cardContainers = document.querySelectorAll('.card-container');
     const exploreButtons = document.querySelectorAll('.btn-card');
     let slideAtual = 0;
-    let isAnimating = false; // Flag para evitar spam de cliques durante a animação
+    let isAnimating = false;
+
+    // --- INICIALIZAÇÃO DE EFEITOS SONOROS (Tone.js) ---
+    const soundPlayer = {
+        isReady: false,
+        synth: null,
+        init: function() {
+            const reverb = new Tone.Reverb(0.5).toDestination();
+            this.synth = new Tone.PluckSynth({
+                attackNoise: 0.5,
+                dampening: 4000,
+                resonance: 0.9
+            }).connect(reverb);
+            this.isReady = true;
+        },
+        playCardFlip: function() {
+            if (!this.isReady) return;
+            try {
+                this.synth.triggerAttackRelease("C5", "8n");
+            } catch (error) {
+                console.error("Erro ao tocar som com Tone.js:", error);
+            }
+        }
+    };
+    
+    document.body.addEventListener('click', () => {
+        if (!soundPlayer.isReady && typeof Tone !== 'undefined') {
+            Tone.start();
+            soundPlayer.init();
+        }
+    }, { once: true });
+
 
     // --- FUNÇÕES DE NAVEGAÇÃO DE SLIDE ---
-
-    /**
-     * Mostra um slide específico e lida com as animações de entrada e saída.
-     * @param {number} proximoIndice O índice do slide a ser mostrado.
-     */
     function mostrarSlide(proximoIndice) {
-        if (isAnimating || proximoIndice < 0 || proximoIndice >= slides.length) {
+        if (isAnimating || proximoIndice < 0 || proximoIndice >= slides.length || proximoIndice === slideAtual) {
             return;
         }
-
         isAnimating = true;
+        
         const slideAntigo = slides[slideAtual];
         const slideNovo = slides[proximoIndice];
 
-        // Animação de saída para o slide antigo
+        // Adiciona/remove classe no body para controlar a visibilidade das setas
+        if (slideNovo.querySelector('.timeline-horizontal-container')) {
+            document.body.classList.add('timeline-ativa');
+        } else {
+            document.body.classList.remove('timeline-ativa');
+        }
+
         slideAntigo.classList.add('slide-saindo');
-
-        // Prepara e mostra o novo slide
-        slideNovo.classList.remove('slide-saindo');
         slideNovo.classList.add('slide-ativo');
-
-        // Atualiza a navegação
+        
         slideAtual = proximoIndice;
         atualizarControles();
 
-        // Após a animação de saída, limpa as classes
         setTimeout(() => {
             slideAntigo.classList.remove('slide-ativo', 'slide-saindo');
             isAnimating = false;
-        }, 700); // Deve corresponder à duração da transição no CSS
+        }, 700);
     }
 
-    /** Atualiza a UI dos controles de navegação */
     function atualizarControles() {
-        // Mostra/esconde botões de navegação
         btnAnterior.style.visibility = slideAtual === 0 ? 'hidden' : 'visible';
         btnProximo.style.visibility = slideAtual === slides.length - 1 ? 'hidden' : 'visible';
-
-        // Atualiza o link/ponto ativo no menu de navegação
         navLinks.forEach(link => {
-            link.classList.remove('active-link');
-            if (parseInt(link.dataset.slideTo, 10) === slideAtual) {
-                link.classList.add('active-link');
-            }
+            link.classList.toggle('active-link', parseInt(link.dataset.slideTo) === slideAtual);
         });
     }
 
-    // --- CONFIGURAÇÃO DOS EVENT LISTENERS ---
+    function inicializarApresentacao() {
+        if (slides.length > 0) {
+            slides[0].classList.add('slide-ativo');
+        }
+        atualizarControles();
+    }
 
+
+    // --- EVENT LISTENERS DE NAVEGAÇÃO PRINCIPAL ---
     btnProximo.addEventListener('click', () => mostrarSlide(slideAtual + 1));
     btnAnterior.addEventListener('click', () => mostrarSlide(slideAtual - 1));
-
-    // =======================================================
-    // AQUI ESTÁ A LÓGICA PARA AS SETAS DO TECLADO
-    // =======================================================
-    document.addEventListener('keydown', (event) => {
-        if (event.key === 'ArrowRight') {
-            mostrarSlide(slideAtual + 1);
-        } else if (event.key === 'ArrowLeft') {
-            mostrarSlide(slideAtual - 1);
-        }
-    });
-    // =======================================================
 
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            const slideIndex = parseInt(link.dataset.slideTo, 10);
-            mostrarSlide(slideIndex);
+            mostrarSlide(parseInt(link.dataset.slideTo, 10));
         });
     });
 
     exploreButtons.forEach(button => {
         button.addEventListener('click', (e) => {
             e.stopPropagation();
-            const slideIndex = parseInt(button.dataset.slideTo, 10);
-            mostrarSlide(slideIndex);
+            mostrarSlide(parseInt(button.dataset.slideTo, 10));
         });
     });
 
     cardContainers.forEach(container => {
         container.addEventListener('click', () => {
+            soundPlayer.playCardFlip();
             container.classList.toggle('virado');
         });
     });
 
-    // --- ANIMAÇÃO DO CANVAS DE PARTÍCULAS ---
+    // --- LÓGICA DA TIMELINE HORIZONTAL ---
+    const timelineContainer = document.querySelector('.timeline-horizontal-container');
+    let timelineItems, btnTimelineAnterior, btnTimelineProximo, timelineIndex;
 
+    if (timelineContainer) {
+        timelineItems = timelineContainer.querySelectorAll('.timeline-horizontal-item');
+        btnTimelineAnterior = document.getElementById('btn-timeline-anterior');
+        btnTimelineProximo = document.getElementById('btn-timeline-proximo');
+        timelineIndex = 0;
+
+        const atualizarTimelineView = () => {
+            const itemWidth = timelineItems[0].offsetWidth;
+            timelineContainer.querySelector('.timeline-horizontal-wrapper').style.transform = `translateX(-${timelineIndex * itemWidth}px)`;
+
+            timelineItems.forEach((item, index) => {
+                item.classList.toggle('ativo', index === timelineIndex);
+            });
+
+            btnTimelineAnterior.style.display = timelineIndex === 0 ? 'none' : 'flex';
+            btnTimelineProximo.style.display = timelineIndex === timelineItems.length - 1 ? 'none' : 'flex';
+        };
+        
+        btnTimelineProximo.addEventListener('click', () => {
+            if (timelineIndex < timelineItems.length - 1) {
+                timelineIndex++;
+                atualizarTimelineView();
+            }
+        });
+
+        btnTimelineAnterior.addEventListener('click', () => {
+            if (timelineIndex > 0) {
+                timelineIndex--;
+                atualizarTimelineView();
+            }
+        });
+        
+        atualizarTimelineView(); // Chama uma vez para inicializar
+    }
+
+    // --- NAVEGAÇÃO INTELIGENTE COM TECLADO (UM ÚNICO LISTENER) ---
+    document.addEventListener('keydown', (event) => {
+        const isTimelineActive = document.body.classList.contains('timeline-ativa');
+
+        if (event.key === 'ArrowRight') {
+            if (isTimelineActive) {
+                // Se está no último item da timeline, avança o slide principal
+                if (timelineIndex === timelineItems.length - 1) {
+                    mostrarSlide(slideAtual + 1);
+                } else { // Senão, avança na timeline
+                    timelineIndex++;
+                    atualizarTimelineView();
+                }
+            } else { // Se não é a timeline, só avança o slide
+                mostrarSlide(slideAtual + 1);
+            }
+        } else if (event.key === 'ArrowLeft') {
+            if (isTimelineActive) {
+                // Se está no primeiro item da timeline, volta o slide principal
+                if (timelineIndex === 0) {
+                    mostrarSlide(slideAtual - 1);
+                } else { // Senão, volta na timeline
+                    timelineIndex--;
+                    atualizarTimelineView();
+                }
+            } else { // Se não é a timeline, só volta o slide
+                mostrarSlide(slideAtual - 1);
+            }
+        }
+    });
+
+    // --- ANIMAÇÃO DO CANVAS DE PARTÍCULAS INTERATIVO ---
     const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
+    const mouse = { x: null, y: null, radius: 100 };
 
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
+    window.addEventListener('mousemove', (event) => {
+        mouse.x = event.x;
+        mouse.y = event.y;
+    });
+    window.addEventListener('mouseout', () => {
+        mouse.x = null;
+        mouse.y = null;
+    });
 
-    // Classe para representar uma partícula
     class Particle {
-        constructor(x, y, directionX, directionY, size, color) {
+        constructor(x, y, dirX, dirY, size, color) {
             this.x = x;
             this.y = y;
-            this.directionX = directionX;
-            this.directionY = directionY;
+            this.dirX = dirX;
+            this.dirY = dirY;
             this.size = size;
             this.color = color;
+            this.density = (Math.random() * 20) + 5;
         }
-
         draw() {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
             ctx.fillStyle = this.color;
             ctx.fill();
         }
-
         update() {
-            if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
-            if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
-            this.x += this.directionX;
-            this.y += this.directionY;
+            this.x += this.dirX;
+            this.y += this.dirY;
+
+            if (this.x > canvas.width + this.size) this.x = -this.size;
+            if (this.x < -this.size) this.x = canvas.width + this.size;
+            if (this.y > canvas.height + this.size) this.y = -this.size;
+            if (this.y < -this.size) this.y = canvas.height + this.size;
+
+            if (mouse.x !== null && mouse.y !== null) {
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < mouse.radius) {
+                    let forceDirectionX = dx / distance;
+                    let forceDirectionY = dy / distance;
+                    let maxDistance = mouse.radius;
+                    let force = (maxDistance - distance) / maxDistance;
+                    let directionX = forceDirectionX * force * this.density * 0.5;
+                    let directionY = forceDirectionY * force * this.density * 0.5;
+                    this.x -= directionX;
+                    this.y -= directionY;
+                }
+            }
             this.draw();
         }
     }
 
     function initParticles() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
         particles = [];
-        const numberOfParticles = (canvas.height * canvas.width) / 9000;
+        const numberOfParticles = (canvas.width * canvas.height) / 9000;
         for (let i = 0; i < numberOfParticles; i++) {
-            const size = Math.random() * 2 + 0.5;
-            const x = Math.random() * (innerWidth - size * 2 - size * 2) + size * 2;
-            const y = Math.random() * (innerHeight - size * 2 - size * 2) + size * 2;
-            const directionX = (Math.random() * 0.4) - 0.2;
-            const directionY = (Math.random() * 0.4) - 0.2;
+            const size = (Math.random() * 2) + 1;
+            const x = (Math.random() * innerWidth);
+            const y = (Math.random() * innerHeight);
+            const dirX = (Math.random() * 0.4) - 0.2; 
+            const dirY = (Math.random() * 0.4) - 0.2;
             const color = 'rgba(56, 189, 248, 0.6)';
-            particles.push(new Particle(x, y, directionX, directionY, size, color));
+            particles.push(new Particle(x, y, dirX, dirY, size, color));
         }
     }
 
     function animateParticles() {
         requestAnimationFrame(animateParticles);
         ctx.clearRect(0, 0, innerWidth, innerHeight);
-        for (let i = 0; i < particles.length; i++) {
-            particles[i].update();
-        }
+        particles.forEach(particle => particle.update());
     }
     
     // --- INICIALIZAÇÃO ---
-    window.addEventListener('resize', () => {
-        resizeCanvas();
-        initParticles();
-    });
-
-    resizeCanvas();
+    window.addEventListener('resize', initParticles);
     initParticles();
     animateParticles();
-    mostrarSlide(0); // Começa mostrando o primeiro slide
+    inicializarApresentacao();
 
 });

@@ -7,16 +7,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelectorAll('.nav-link');
     const cardContainers = document.querySelectorAll('.card-container');
     const exploreButtons = document.querySelectorAll('.btn-card');
+    const constellationItems = document.querySelectorAll('.constellation-item'); // NOVO
     let slideAtual = 0;
     let isAnimating = false;
 
     // --- INICIALIZAÇÃO DE EFEITOS SONOROS (Tone.js) ---
-    // Apenas o som de virar o card será mantido e tocado.
     const soundPlayer = {
         isReady: false,
         synth: null,
         init: function() {
-            // Um som de 'pluck' com reverb, mais etéreo.
             const reverb = new Tone.Reverb(0.5).toDestination();
             this.synth = new Tone.PluckSynth({
                 attackNoise: 0.5,
@@ -35,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
     
-    // Inicia os sons após a primeira interação do usuário.
     document.body.addEventListener('click', () => {
         if (!soundPlayer.isReady && typeof Tone !== 'undefined') {
             Tone.start();
@@ -50,7 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         isAnimating = true;
-        // SOM REMOVIDO DAQUI
         
         const slideAntigo = slides[slideAtual];
         const slideNovo = slides[proximoIndice];
@@ -95,27 +92,32 @@ document.addEventListener('DOMContentLoaded', () => {
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            // SOM REMOVIDO DAQUI
             mostrarSlide(parseInt(link.dataset.slideTo, 10));
+        });
+    });
+
+    // NOVO: Adiciona funcionalidade de clique para os itens da constelação
+    constellationItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            mostrarSlide(parseInt(item.dataset.slideTo, 10));
         });
     });
 
     exploreButtons.forEach(button => {
         button.addEventListener('click', (e) => {
             e.stopPropagation();
-            // SOM REMOVIDO DAQUI
             mostrarSlide(parseInt(button.dataset.slideTo, 10));
         });
     });
 
-    // ÚNICO LUGAR COM SOM
     cardContainers.forEach(container => {
         container.addEventListener('click', () => {
-            soundPlayer.playCardFlip(); // Toca o som de virar o card
+            soundPlayer.playCardFlip();
             container.classList.toggle('virado');
         });
     });
-
+    
     // --- ANIMAÇÃO DO CANVAS DE PARTÍCULAS INTERATIVO ---
     const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
@@ -200,10 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // --- INICIALIZAÇÃO ---
-    window.addEventListener('resize', () => {
-        initParticles();
-    });
-
+    window.addEventListener('resize', initParticles);
     initParticles();
     animateParticles();
     inicializarApresentacao();
