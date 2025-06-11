@@ -31,10 +31,9 @@
                     <svg class="constellation-lines">
                         <path d="M 100 100 L 300 180 L 500 100 L 700 180 L 900 100"/>
                     </svg>
-
                     <div class="constellation-item" style="top: 100px; left: 100px;" data-slide-to="2">
                         <div class="star"></div>
-                        <span class="star-label">História das Ideias</span>
+                        <span class="star-label">Linha do Tempo</span>
                     </div>
                     <div class="constellation-item" style="top: 180px; left: 300px;" data-slide-to="5">
                         <div class="star"></div>
@@ -58,7 +57,8 @@
         
         <section class="slide">
             <div class="conteudo-slide">
-                <h3 data-anim="fade-up">Uma Breve História das Ideias</h3>
+                <h3 data-anim="fade-up">Linha do Tempo</h3>
+                <h4 class="timeline-subtitulo" data-anim="fade-up" style="--delay: 0.1s;">Os Pilares do Pensamento Moderno</h4>
                 <div class="timeline-progress-container" data-anim="fade-up" style="--delay: 0.2s;">
                     <div class="timeline-progress-bar">
                         <div class="progress-segment ativo"></div>
@@ -75,7 +75,8 @@
 
         <section class="slide">
             <div class="conteudo-slide">
-                <h3 data-anim="fade-up">Uma Breve História das Ideias</h3>
+                <h3 data-anim="fade-up">Linha do Tempo</h3>
+                <h4 class="timeline-subtitulo" data-anim="fade-up" style="--delay: 0.1s;">Os Pilares do Pensamento Moderno</h4>
                 <div class="timeline-progress-container" data-anim="fade-up" style="--delay: 0.2s;">
                     <div class="timeline-progress-bar">
                         <div class="progress-segment ativo"></div>
@@ -92,7 +93,8 @@
 
         <section class="slide">
             <div class="conteudo-slide">
-                <h3 data-anim="fade-up">Uma Breve História das Ideias</h3>
+                <h3 data-anim="fade-up">Linha do Tempo</h3>
+                <h4 class="timeline-subtitulo" data-anim="fade-up" style="--delay: 0.1s;">Os Pilares do Pensamento Moderno</h4>
                 <div class="timeline-progress-container" data-anim="fade-up" style="--delay: 0.2s;">
                     <div class="timeline-progress-bar">
                         <div class="progress-segment ativo"></div>

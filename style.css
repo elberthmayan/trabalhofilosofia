@@ -49,6 +49,20 @@
     }
 }
 
+/* Animação para o brilho do núcleo da opinião */
+@keyframes pulse-nexus-glow {
+    0% {
+        box-shadow: 0 0 60px -10px rgba(56, 189, 248, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 80px 0px rgba(56, 189, 248, 0.5);
+    }
+    100% {
+        box-shadow: 0 0 60px -10px rgba(56, 189, 248, 0.3);
+    }
+}
+
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -514,18 +528,35 @@ tbody tr:last-child td {
     border-bottom: none;
 }
 
-/* --- 10. OPINIÃO --- */
-.opiniao-box {
-    margin: 20px auto 0 auto;
-    padding: 30px 40px;
-    border: 1px solid var(--cor-borda);
-    border-radius: 8px;
-    background-color: var(--cor-superficie);
-    text-align: left; 
-    max-width: 800px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+
+/* --- 10. OPINIÃO CRÍTICA (NÚCLEO DA NEBULOSA) --- */
+.subtitulo-opiniao {
+    font-family: var(--fonte-corpo);
+    font-size: 1.3rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--cor-texto-secundario);
+    margin-top: -20px;
+    margin-bottom: 40px;
 }
-.opiniao-box p { font-size: 1.1rem; line-height: 1.8; color: var(--cor-texto-principal); margin-bottom: 0; }
+.nucleo-opiniao {
+    max-width: 800px;
+    margin: 20px auto 0;
+    padding: 40px 50px;
+    border: 1px solid var(--cor-borda);
+    border-radius: 12px;
+    text-align: center; 
+    position: relative;
+    background: radial-gradient(ellipse at center, rgba(10, 16, 30, 0.8) 0%, rgba(20, 27, 45, 0.9) 70%), var(--cor-superficie);
+    animation: pulse-nexus-glow 5s infinite ease-in-out;
+}
+.nucleo-opiniao p {
+    font-size: 1.3rem;
+    line-height: 1.8;
+    color: var(--cor-texto-principal);
+    margin: 0;
+}
+
 
 /* --- 11. PÁGINA FINAL --- */
 .agradecimento-final {
