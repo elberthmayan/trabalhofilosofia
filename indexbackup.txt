@@ -29,28 +29,31 @@
             </div>
         </section>
 
-        <!-- NOVO SLIDE: Linha do Tempo -->
+        <!-- SLIDE DA LINHA DO TEMPO (ATUALIZADO) -->
         <section class="slide">
             <div class="conteudo-slide">
                 <h3 data-anim="fade-up">Linha do Tempo</h3>
-                <div class="timeline-visual-container">
-                    <div class="timeline-item" data-anim="fade-up" style="--delay: 0.2s;">
-                        <div class="timeline-ano">Séc. XVII-XVIII</div>
-                        <div class="timeline-conteudo">
+                <div class="timeline-minimalista-container" data-anim="fade-up" style="--delay: 0.2s;">
+                    <!-- Item 1 -->
+                    <div class="timeline-minimalista-item">
+                        <div class="timeline-minimalista-conteudo">
+                            <span class="timeline-minimalista-ano">Séc. XVII-XVIII</span>
                             <h4>Racionalismo & Empirismo</h4>
                             <p>O debate que moldou a filosofia moderna. De um lado, a <strong>razão</strong> (Descartes, Spinoza). Do outro, a <strong>experiência</strong> (Locke, Hume).</p>
                         </div>
                     </div>
-                    <div class="timeline-item" data-anim="fade-up" style="--delay: 0.4s;">
-                        <div class="timeline-ano">Séc. XVIII</div>
-                        <div class="timeline-conteudo">
+                    <!-- Item 2 -->
+                    <div class="timeline-minimalista-item">
+                        <div class="timeline-minimalista-conteudo">
+                           <span class="timeline-minimalista-ano">Séc. XVIII</span>
                             <h4>Iluminismo</h4>
                             <p>A "Era da Razão". A filosofia se volta para a sociedade, defendendo <strong>liberdade e progresso</strong> (Voltaire, Rousseau).</p>
                         </div>
                     </div>
-                    <div class="timeline-item" data-anim="fade-up" style="--delay: 0.6s;">
-                        <div class="timeline-ano">Final do Séc. XVIII</div>
-                        <div class="timeline-conteudo">
+                    <!-- Item 3 -->
+                    <div class="timeline-minimalista-item">
+                        <div class="timeline-minimalista-conteudo">
+                            <span class="timeline-minimalista-ano">Final do Séc. XVIII</span>
                             <h4>Criticismo</h4>
                             <p>Kant chega para unir os dois mundos, propondo uma <strong>síntese entre razão e experiência</strong> e revolucionando o pensamento.</p>
                         </div>
